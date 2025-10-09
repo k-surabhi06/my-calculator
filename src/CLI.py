@@ -6,13 +6,9 @@ from calculator import add, subtract, multiply, divide, power, square_root
 @click.argument("operation")
 @click.argument("numbers", type=float, nargs=-1)
 def calculate(operation, numbers):
+    num1, num2 = numbers[0], numbers[1]
     """Simple calculator CLI"""
     try:
-        if len(numbers) < 2 and operation != "square_root":
-            sys.exit("Please provide at least two numbers.")
-
-        num1, num2 = numbers[0], numbers[1] if len(numbers) > 1 else (numbers[0], None)
-
         if operation == "add":
             result = add(num1, num2)
         elif operation == "subtract":
@@ -21,17 +17,22 @@ def calculate(operation, numbers):
             result = multiply(num1, num2)
         elif operation == "divide":
             result = divide(num1, num2)
-        elif operation == "power":
-            result = power(num1, num2)
-        elif operation == "square_root":
-            result = square_root(num1)
         else:
-            sys.exit()
+            click.echo(f"Unknown operation: {operation}")
+            sys.exit(1)
 
-        print(result)
+        # Format result nicely
+        if result == int(result):
+            click.echo(int(result))
+        else:
+            click.echo(f"{result:.2f}")
 
-    except Exception:
-        sys.exit()
+    except ValueError as e:
+        click.echo(f"Error: {e}")
+        sys.exit(1)
+    except Exception as e:
+        click.echo(f"Unexpected error: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     calculate()

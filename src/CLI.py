@@ -10,12 +10,12 @@ def calculate(operation, numbers):
     try:
         if operation == 'add':
             if len(numbers) != 2:
-                click.echo("Error: add requires exactly 2 numbers")
+                click.echo(f"Unexpected error: add requires exactly 2 numbers")
                 sys.exit(1)
             result = add(numbers[0], numbers[1])
         elif operation == 'subtract':
             if len(numbers) != 2:
-                click.echo("Error: subtract requires exactly 2 numbers")
+                click.echo(f"Unexpected error: subtract requires exactly 2 numbers")
                 sys.exit(1)
             result = subtract(numbers[0], numbers[1])
         else:

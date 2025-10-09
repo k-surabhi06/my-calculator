@@ -6,6 +6,11 @@ from calculator import add, subtract, multiply, divide, power, square_root
 @click.argument("operation")
 @click.argument("numbers", type=float, nargs=-1)
 def calculate(operation, numbers):
+    if len(numbers) < 2 and operation != "square_root":
+        click.echo("Unexpected error: missing operand")
+        sys.exit(1)
+
+
     num1, num2 = numbers[0], numbers[1]
     """Simple calculator CLI"""
     try:

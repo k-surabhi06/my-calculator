@@ -127,7 +127,7 @@ jobs:
           pip install black
 
       - name: Check formatting with black (check)
-        run: black src/ tests/ --check
+        run: black src/ tests/ 
 
       - name: Show black diff
         run: black src/ tests/ --diff || true

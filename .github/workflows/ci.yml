@@ -53,7 +53,8 @@ jobs:
 
       - name: Run tests with coverage and generate HTML report
         run: |
-          export PYTHONPATH=$PYTHONPATH:.
+          echo "Running tests with PYTHONPATH"
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest tests/ --cov=src --cov-report=html
 
   coverage:
@@ -75,7 +76,8 @@ jobs:
 
       - name: Run tests with coverage and generate HTML report
         run: |
-          export PYTHONPATH=$PYTHONPATH:.
+          echo "Running coverage tests with PYTHONPATH"
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest tests/ --cov=src --cov-report=html
 
       - name: Upload coverage HTML

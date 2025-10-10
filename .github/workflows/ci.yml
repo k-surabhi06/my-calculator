@@ -51,9 +51,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
-        run: PYTHONPATH=. pytest -v
-
+      - name: Run tests with coverage and generate HTML report
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          pytest tests/ --cov=src --cov-report=html
 
   coverage:
     runs-on: ubuntu-latest
@@ -73,7 +74,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests with coverage and generate HTML report
-        run: pytest tests/ --cov=src --cov report=html
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          pytest tests/ --cov=src --cov-report=html
 
       - name: Upload coverage HTML
         uses: actions/upload-artifact@v4

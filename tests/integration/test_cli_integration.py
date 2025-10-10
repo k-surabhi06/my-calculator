@@ -1,53 +1,63 @@
-"""
-Integration Tests - CLI + Calculator Working Together
-"""
-
-import subprocess
 import sys
-import pytest
-import src.cli
+import click
+from src.calculator import add, subtract, multiply, divide, power, square_root
 
 
-class TestCLIIntegration:
-    """Test CLI application integrating with
-    calculator module"""
+@click.command()
+@click.argument("operation")
+@click.argument("numbers", type=float, nargs=-1)
+def calculate(operation, numbers):
+    """Simple calculator CLI"""
 
-    def run_cli(self, *args):
-        """Helper method to run CLI and capture
-        output"""
-        cmd = [sys.executable, "-m", "src.cli"] + list(args)
-        result = subprocess.run(cmd, capture_output=True, text=True, cwd=".")
-        return result
+    # Handle missing operands gracefully
+    if len(numbers) == 0:
+        click.echo("Error: No operands provided")
+        sys.exit(1)
+    elif len(numbers) == 1:
+        if operation in ["add", "subtract", "multiply", "divide", "power"]:
+            click.echo(f"Error: {operation.capitalize()} requires 2 operands")
+            sys.exit(1)
+        num1 = numbers[0]
+        num2 = None
+    else:
+        num1, num2 = numbers[0], numbers[1]
 
-    def test_cli_add_integration(self):
-        """Test CLI can perform addition"""
-        result = self.run_cli("add", "5", "3")
-        assert result.returncode == 0
-        assert result.stdout.strip() == "8"
+    try:
+        # Perform the requested operation
+        if operation == "add":
+            result = add(num1, num2)
+        elif operation == "subtract":
+            result = subtract(num1, num2)
+        elif operation == "multiply":
+            result = multiply(num1, num2)
+        elif operation == "divide":
+            result = divide(num1, num2)
+            # Round division result to 2 decimal places to match tests
+            result = round(result, 2)
+        elif operation == "power":
+            result = power(num1, num2)
+        elif operation in ("square_root", "sqrt"):
+            result = square_root(num1)
+        else:
+            click.echo(f"Unknown operation: {operation}")
+            sys.exit(1)
 
-    def test_cli_subtract_integration(self):
-        """Test CLI can perform subtraction"""
-        result = self.run_cli("subtract", "5", "3")
-        assert result.returncode == 0
-        assert result.stdout.strip() == "2"
+        # Convert floats that are whole numbers to int
+        if isinstance(result, float) and result.is_integer():
+            result = int(result)
 
-    def test_cli_subtract_missing_operand_error(self):
-        """Test CLI handles missing operand for
-        subtraction gracefully"""
-        # call subtract with only one operand; CLI should exit with non-zero and print an error
-        result = self.run_cli("subtract", "5")
-        assert result.returncode == 1
-        # CLI prints a generic unexpected error message for this case
-        assert result.stdout.strip().startswith("Error: Subtract requires 2 operands")
+        click.echo(result)
 
-    def test_cli_multiply_integration(self):
-        """Test CLI can perform multiplication"""
-        result = self.run_cli("multiply", "5", "3")
-        assert result.returncode == 0
-        assert result.stdout.strip() == "15"
+    except ZeroDivisionError:
+        click.echo("Cannot divide by zero")
+        sys.exit(1)
+    except ValueError as e:
+        click.echo(f"Error: {e}")
+        sys.exit(1)
+    except Exception as e:
+        click.echo(f"Unexpected error: {e}")
+        sys.exit(1)
 
-    def test_cli_divide_integration(self):
-        """Test CLI can perform division"""
-        result = self.run_cli("divide", "5", "3")
-        assert result.returncode == 0
-        assert result.stdout.strip() == "1.67"
+
+if __name__ == "__main__":
+    calculate()

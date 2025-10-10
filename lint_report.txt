@@ -1,18 +1,10 @@
-************* Module src.calculator
-src\calculator.py:41:1: W0511: TODO: Students will add multiply, divide, power, sqrt functions (fixme)
 ************* Module src.cli
 src\cli.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-src\cli.py:3:0: E0401: Unable to import 'calculator' (import-error)
-src\cli.py:32:11: W0718: Catching too general exception Exception (broad-exception-caught)
-src\cli.py:14:27: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
-src\cli.py:19:27: W1309: Using an f-string that does not have any interpolated variables (f-string-without-interpolation)
-src\cli.py:38:4: E1120: No value for argument 'operation' in function call (no-value-for-parameter)
-src\cli.py:38:4: E1120: No value for argument 'numbers' in function call (no-value-for-parameter)
-src\cli.py:3:0: W0611: Unused multiply imported from calculator (unused-import)
-src\cli.py:3:0: W0611: Unused divide imported from calculator (unused-import)
-src\cli.py:3:0: W0611: Unused power imported from calculator (unused-import)
-src\cli.py:3:0: W0611: Unused square_root imported from calculator (unused-import)
+src\cli.py:55:11: W0718: Catching too general exception Exception (broad-exception-caught)
+src\cli.py:9:0: R0912: Too many branches (15/12) (too-many-branches)
+src\cli.py:61:4: E1120: No value for argument 'operation' in function call (no-value-for-parameter)
+src\cli.py:61:4: E1120: No value for argument 'numbers' in function call (no-value-for-parameter)
 
 ------------------------------------------------------------------
-Your code has been rated at 5.64/10 (previous run: 5.64/10, +0.00)
+Your code has been rated at 8.03/10 (previous run: 8.03/10, +0.00)
 

@@ -20,8 +20,6 @@ def multiply(a, b):
         raise TypeError("Both arguments must be numbers")
     return a * b
 
-    
-
 
 def divide(a, b):
     """Divide a by b with enhanced error handling."""
@@ -31,10 +29,7 @@ def divide(a, b):
         raise ValueError(f"Cannot divide {a} by zero - division by zero is undefined")
 
     return a / b
-    
 
-
-# TODO: Students will add multiply, divide, power, sqrt functions
 
 if __name__ == "__main__":
     print("🧮 Calculator Module")

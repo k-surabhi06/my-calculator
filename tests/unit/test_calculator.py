@@ -47,7 +47,6 @@ class TestMultiplyDivideWithValidation:
             divide("10", 2)
 
 
-# TODO: Students will add TestMultiplyDivide class
 class TestAdvancedOperations:
     """Test power and square root operations"""
 

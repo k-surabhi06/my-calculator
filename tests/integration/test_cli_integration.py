@@ -5,6 +5,7 @@ Integration Tests - CLI + Calculator Working Together
 import subprocess
 import sys
 import pytest
+import src.cli
 
 
 class TestCLIIntegration:
